@@ -30,6 +30,8 @@ const Signup = () => {
     alert('Signed up successfully (demo)')
     console.log('Form data:', formData)
   }
+  console.log("push");
+  
 
   return (
     <div className="min-h-screen grid md:grid-cols-2 overflow-hidden">
