@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import logoImage from '../assets/logo.image.svg'
 import bgImage from '../assets/bg-image.svg'
-
+import { Link } from 'react-router-dom'
+import { Button } from '../components/ui/button'
+import { Input } from '../components/ui/input'
+import { Label } from '../components/ui/label'
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -115,7 +118,7 @@ const Signup = () => {
 
             <p className="text-center text-sm text-soft">
               Already have an account?
-              <a href="#" className="text-brand font-medium hover:underline ml-1">Log in</a>
+              <Link to="/" className="text-brand font-medium hover:underline ml-1">Log in</Link>
             </p>
           </form>
         </div>
