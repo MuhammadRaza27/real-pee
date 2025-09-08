@@ -1,8 +1,8 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Login from '../auth/login.jsx'
+import Login from '../auth/Login.jsx'
 import Signup from '../auth/Signup.jsx'
-import Forgot from '../auth/forgot.jsx'
+import Forgot from '../auth/Forgot.jsx'
 import SetNewP from '../auth/SetNewP.jsx'
 
 
