@@ -30,7 +30,6 @@ const Signup = () => {
     alert('Signed up successfully (demo)')
     console.log('Form data:', formData)
   }
-  console.log("push");
   
 
   return (

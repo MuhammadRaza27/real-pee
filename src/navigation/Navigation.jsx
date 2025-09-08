@@ -1,9 +1,9 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Login from '../auth/login'
-import Signup from '../auth/Signup'
-import Forgot from '../auth/forgot'
-import SetNewP from '../auth/SetNewP'
+import Login from '../auth/login.jsx'
+import Signup from '../auth/Signup.jsx'
+import Forgot from '../auth/forgot.jsx'
+import SetNewP from '../auth/SetNewP.jsx'
 
 
 const Navigation = () => {
