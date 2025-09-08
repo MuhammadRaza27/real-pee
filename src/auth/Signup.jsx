@@ -43,8 +43,8 @@ const Signup = () => {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm text-soft mb-1.5">Name</label>
-              <input 
+              <Label className="block mb-1.5">Name</Label>
+              <Input 
                 type="text" 
                 name="name"
                 value={formData.name}
@@ -56,8 +56,8 @@ const Signup = () => {
             </div>
 
             <div>
-              <label className="block text-sm text-soft mb-1.5">Email</label>
-              <input 
+              <Label className="block mb-1.5">Email</Label>
+              <Input 
                 type="email" 
                 name="email"
                 value={formData.email}
@@ -69,9 +69,9 @@ const Signup = () => {
             </div>
 
             <div>
-              <label className="block text-sm text-soft mb-1.5">Password</label>
+              <Label className="block mb-1.5">Password</Label>
               <div className="relative">
-                <input 
+                <Input 
                   type={showPassword ? "text" : "password"}
                   name="password"
                   value={formData.password}
