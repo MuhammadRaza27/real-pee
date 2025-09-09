@@ -36,7 +36,7 @@ const Signup = () => {
     <div className="min-h-screen grid md:grid-cols-2 overflow-hidden">
       {/* LEFT: Sign up */}
       <section className="flex items-center justify-center py-6 px-6 md:px-10 md:py-10 bg-white">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-[360px]">
           <div className="flex items-center justify-center">
             <img src={logoImage} alt="Logo" className="w-[54px] h-[54px]" />
           </div>
@@ -44,7 +44,7 @@ const Signup = () => {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <Label className="block mb-1.5">Name</Label>
+              <Label className="block mb-1.5">Name*</Label>
               <Input 
                 type="text" 
                 name="name"
@@ -78,7 +78,7 @@ const Signup = () => {
                   value={formData.password}
                   onChange={handleInputChange}
                   required 
-                  minLength="6" 
+                  minLength="8" 
                   placeholder="Create a password"
                   className="w-full rounded-lg border border-line bg-white px-3.5 py-2.5 pr-11 text-[15px] outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand"
                 />
@@ -94,7 +94,7 @@ const Signup = () => {
                   </svg>
                 </button>
               </div>
-              <p className="text-[12px] text-soft mt-1">Must be at least 6 characters.</p>
+              <p className="text-[12px] text-[#667085] mt-1">Must be at least 8 characters.</p>
             </div>
 
             <button 
@@ -117,9 +117,9 @@ const Signup = () => {
               Sign up with Google
             </button>
 
-            <p className="text-center text-sm text-soft">
+            <p className="text-center text-sm text-[#667085]">
               Already have an account?
-              <Link to="/" className="text-brand font-medium hover:underline ml-1">Log in</Link>
+              <Link to="/" className="text-brand font-medium hover:underline ml-1 text-[#00875A]">Log in</Link>
             </p>
           </form>
         </div>

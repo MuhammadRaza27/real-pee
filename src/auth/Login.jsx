@@ -57,7 +57,7 @@ const Login = () => {
             </div>
 
             <div>
-              <Label className="block mb-1.5">Password</Label>
+              <Label className="block mb-1.5 mt-5">Password</Label>
               <div className="relative">
                 <Input 
                   type={showPassword ? "text" : "password"}
@@ -69,7 +69,7 @@ const Login = () => {
                   placeholder="Create a password"
                   className="w-full rounded-lg border border-line bg-white px-3.5 py-2.5 pr-11 text-[15px] outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand"
                 />
-                <Button 
+                <button 
                   type="button" 
                   onClick={togglePasswordVisibility}
                   className={`absolute inset-y-0 right-0 px-3 text-soft hover:text-ink/80 ${showPassword ? 'text-ink' : ''}`}
@@ -79,12 +79,11 @@ const Login = () => {
                     <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" stroke="currentColor" strokeWidth="1.5"/>
                     <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.5"/>
                   </svg>
-                </Button>
+                </button>
               </div>
-              <p className="text-[12px] text-soft mt-1">Must be at least 6 characters.</p>
             </div>
 
-            <div class="flex justify-between items-center gap-8 py-5">
+            <div class="flex justify-between items-center flex-wrap gap-3 py-5">
              <span class="flex items-center gap-2 text-sm font-medium text-[#344054]"><input type="checkbox"/>Remember for 30 days</span>
             <span class="text-[#00875A]">
             <Link to="/forgot"> Forgot password?</Link>
@@ -97,9 +96,9 @@ const Login = () => {
             <Button 
             variant={"default"}
               type="submit"
-              className='!bg-primary text-primary'
+              className='!bg-[#00875A] text-white'
             >
-              Get Started
+              Sign in
             </Button>
 
             <Button 
@@ -115,9 +114,9 @@ const Login = () => {
               Sign up with Google
             </Button>
 </div>
-            <p className="text-center text-sm text-soft">
-              Already have an account?
-              <Link to="/signup" className="text-brand font-medium hover:underline ml-1">Sign up</Link>
+            <p className="text-center text-sm text-[#667085]">
+              Don't have an account?
+              <Link to="/signup" className="text-brand text-[#00875A] font-medium hover:underline ml-1">Sign up</Link>
             </p>
           </form>
         </div>

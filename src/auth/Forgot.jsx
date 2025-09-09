@@ -21,7 +21,7 @@ const Forgot = () => {
     <div className="min-h-screen grid md:grid-cols-2">
       {/* LEFT: Forgot Password Form */}
       <section className="flex items-center justify-center py-6 px-6 md:px-10 bg-white">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-[360px]">
           <div className="flex items-center justify-center w-[54] h-[54]">
             <img src={simpleIcon} alt="Logo" />
           </div>

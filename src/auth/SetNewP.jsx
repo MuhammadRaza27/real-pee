@@ -42,7 +42,7 @@ const SetNewP = () => {
     <div className="min-h-screen grid md:grid-cols-2 overflow-hidden">
       {/* LEFT: Set New Password Form */}
       <section className="flex items-center justify-center py-6 px-6 md:px-10 md:py-10 bg-white">
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-[360px]">
           <div className="flex items-center justify-center">
             <img src={logoImage} alt="Logo" className="w-[54px] h-[54px]" />
           </div>
