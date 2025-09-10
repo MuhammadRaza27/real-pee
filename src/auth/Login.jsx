@@ -98,7 +98,7 @@ const Login = () => {
               type="submit"
               className='!bg-[#00875A] text-white'
             >
-              Sign in
+             <Link to="/dashboard"> Sign in</Link>
             </Button>
 
             <Button 
