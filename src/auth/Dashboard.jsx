@@ -17,6 +17,10 @@ import {
 } from 'lucide-react';
 import logoImage from '../assets/logo.image.svg'
 import menuIcon from '../assets/Menu icon.svg'
+import transactionsIcon from '../assets/trans.icon.svg.svg'
+import calendarIcon from '../assets/Calender icon.svg'
+import prospectsIcon from '../assets/Prospecting icon.svg'
+import financesIcon from '../assets/Finance icon.svg'
 
 const Dashboard = () => {
   // State management
@@ -25,12 +29,14 @@ const Dashboard = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [activeSidebarItem, setActiveSidebarItem] = useState('dashboard');
   const [notifications, setNotifications] = useState(1);
+  const [expandedTask, setExpandedTask] = useState(1); // Track which task is expanded
+  const [completedTasks, setCompletedTasks] = useState([1]); // Track completed tasks
 
   // Sample data
   const sidebarItems = [
     { id: 'dashboard', icon: 'material-symbols:dashboard', label: 'Dashboard' },
     { id: 'transactions', icon: 'material-symbols:work-outline', label: 'Transactions' },
-    { id: 'events', icon: 'material-symbols:event-outline', label: 'Events' },
+    { id: 'calendar', icon: 'material-symbols:calendar-today', label: 'Calendar' },
     { id: 'clients', icon: 'material-symbols:person-search-outline', label: 'Clients' },
     { id: 'finances', icon: 'material-symbols:attach-money', label: 'Finances' }
   ];
@@ -49,10 +55,30 @@ const Dashboard = () => {
   ];
 
   const onboardingTasks = [
-    { id: 1, title: 'Add Your First Transaction', completed: true, description: 'Log any deal - active, pending or closed. Just one brings your dashboard to life.' },
-    { id: 2, title: 'Connect Your Calendar', completed: false },
-    { id: 3, title: 'Connect Your Bank (Optional)', completed: false },
-    { id: 4, title: 'Set Your First Goal', completed: false }
+    { 
+      id: 1, 
+      title: 'Add Your First Transaction', 
+      description: 'Log any deal - active, pending or closed. Just one brings your dashboard to life.',
+      optional: false
+    },
+    { 
+      id: 2, 
+      title: 'Connect Your Calendar', 
+      description: 'Stay organized. Never miss a showing or follow-up.',
+      optional: true
+    },
+    { 
+      id: 3, 
+      title: 'Connect Your Bank', 
+      description: 'Track your real income automatically.',
+      optional: true
+    },
+    { 
+      id: 4, 
+      title: 'Set Your First Goal', 
+      description: "Let's define success - track it in real time.",
+      optional: false
+    }
   ];
 
   // Event handlers
@@ -96,18 +122,31 @@ const Dashboard = () => {
     alert(`Event menu clicked for event ${eventId}`);
   };
 
+  const toggleTaskExpansion = (taskId) => {
+    setExpandedTask(expandedTask === taskId ? null : taskId);
+  };
+
+  const toggleTaskCompletion = (taskId, e) => {
+    e.stopPropagation(); // Prevent expansion when clicking checkbox
+    setCompletedTasks(prev => 
+      prev.includes(taskId) 
+        ? prev.filter(id => id !== taskId)
+        : [...prev, taskId]
+    );
+  };
+
   // Calculate progress
-  const completedTasks = onboardingTasks.filter(task => task.completed).length;
-  const progressPercentage = (completedTasks / onboardingTasks.length) * 100;
+  const completedTasksCount = completedTasks.length;
+  const progressPercentage = (completedTasksCount / onboardingTasks.length) * 100;
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-gray-50 flex overflow-hidden">
       {/* Left Sidebar */}
-      <div className="w-16 bg-white border-r border-gray-200 flex flex-col items-center py-6 space-y-6">
+      <div className="w-[76px] bg-gray-50 border-r border-gray-200 flex flex-col items-center py-6 space-y-6 flex-shrink-0">
         <div className="flex items-center space-x-2">
           <div className="w-[54px] h-[54px]">
             <img src={logoImage} alt=""/>
-            <Eye className="w-2 h-2 text-white" />
+            
           </div>
         </div>
         
@@ -121,12 +160,20 @@ const Dashboard = () => {
                 className={`w-12 h-12 rounded-[100px] flex items-center justify-center transition-colors ${
                   isActive 
                     ? 'bg-green-100 text-green-600' 
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    : ' text-gray-600 hover:bg-gray-200'
                 }`}
                 title={item.label}
               >
                 {item.id === 'dashboard' ? (
                   <img src={menuIcon} alt="Dashboard" className="w-[60px] h-[60px]" />
+                ) : item.id === 'transactions' ? (
+                  <img src={transactionsIcon} alt="Transactions" className="w-[60px] h-[60px]" />
+                ) : item.id === 'calendar' ? (
+                  <img src={calendarIcon} alt="Calendar" className="w-[60px] h-[60px]" />
+                ) : item.id === 'clients' ? (
+                  <img src={prospectsIcon} alt="Prospects" className="w-[60px] h-[60px]" />
+                ) : item.id === 'finances' ? (
+                  <img src={financesIcon} alt="Finances" className="w-[60px] h-[60px]" />
                 ) : (
                   <Icon icon={item.icon} className="w-5 h-5" />
                 )}
@@ -137,9 +184,9 @@ const Dashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Top Bar */}
-        <div className="bg-white border-b border-gray-200 px-6 py-4 flex items-start justify-between">
+        <div className="bg-white border-b border-gray-200 px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
               <div className="">
@@ -148,7 +195,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="flex-1 max-w-md mr-[400px]">
+          <div className="flex-1 max-w-md mx-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
               <input
@@ -156,18 +203,18 @@ const Dashboard = () => {
                 placeholder="Search for transactions, clients, finances"
                 value={searchQuery}
                 onChange={handleSearch}
-                className="w-full pl-10 pr-4 py-2  border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
               />
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
             <Button 
               onClick={handleAddTransaction}
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2"
+              className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg flex items-center space-x-2 text-sm"
             >
               <Plus className="w-4 h-4" />
-              <span>Add Transactions</span>
+              <span className="hidden sm:inline">Add Transactions</span>
             </Button>
             <button 
               onClick={toggleDarkMode}
@@ -196,14 +243,14 @@ const Dashboard = () => {
         </div>
 
         {/* Main Dashboard Content */}
-        <div className="flex-1 p-6">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Welcome back</h1>
+        <div className="flex-1 p-4 relative overflow-x-auto">
+          <div className="mb-6">
+            <h1 className="text-2xl font-bold text-gray-900">Welcome back</h1>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-[24px] mb-6">
             {/* Commission Card */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200">
+            <div className="bg-white rounded-xl xl:col-span-2 h-[346px] p-6 border border-gray-200">
               <div className="flex items-center justify-between mb-4">
                  <div className="flex items-center space-x-3">
                    <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
@@ -214,7 +261,7 @@ const Dashboard = () => {
               </div>
               
               <div className="space-y-4">
-                <div>
+                <div >
                   <p className="text-sm text-gray-600">Net Commission</p>
                   <p className="text-2xl font-bold text-gray-900">$400k</p>
                   <div className="flex items-center space-x-2 mt-1">
@@ -233,33 +280,60 @@ const Dashboard = () => {
                     <span>Goal: $700 Commission</span>
                     <span>70%</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="">
                     <div className="bg-blue-500 h-2 rounded-full transition-all duration-300" style={{width: '70%'}}></div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Closed Volume Card */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900">Closed Volume</h3>
-                </div>
-              </div>
+            {/* Transactions Card */}
+            <div className="bg-white rounded-xl xl:col-span-1 h-[346px] p-6 border border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-6">Transactions</h3>
               
-              <div className="text-center">
-                <p className="text-3xl font-bold text-gray-900">$8.5M</p>
-                <p className="text-sm text-gray-600 mt-2">Total closed volume</p>
+              <div className="flex justify-between items-center h-full relative ">
+                {/* Active Transactions */}
+                <div className="flex flex-col  items-center space-y-3 ">
+                  <span className="inline-block px-3 py-1 text-xs  font-medium text-green-600 bg-green-100 rounded-full">
+                    Active
+                  </span>
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                    <span className="text-2xl font-bold text-gray-900">12</span>
+                  </div>
+                </div>
+                
+                {/* Vertical Line 1 */}
+                <div className="absolute left-1/3 top-1/2 transform -translate-y-1/2 w-px h-40 bg-gray-300"></div>
+                
+                {/* Pending Transactions */}
+                <div className="flex flex-col items-center space-y-3">
+                  <span className="inline-block px-3 py-1 text-xs font-medium text-orange-600 bg-orange-100 rounded-full">
+                    Pending
+                  </span>
+                  <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center">
+                    <span className="text-2xl font-bold text-gray-900">14</span>
+                  </div>
+                </div>
+                
+                {/* Vertical Line 2 */}
+                <div className="absolute right-1/3 top-1/2 transform -translate-y-1/2 w-px h-40 bg-gray-300"></div>
+                
+                {/* Closed Transactions */}
+                <div className="flex flex-col items-center space-y-3">
+                  <span className="inline-block px-3 py-1 text-xs font-medium text-red-600 bg-red-100 rounded-full">
+                    Closed
+                  </span>
+                  <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+                    <span className="text-2xl font-bold text-gray-900">2</span>
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Onboarding Checklist */}
             {showOnboarding && (
-              <div className="bg-white rounded-xl p-6 border border-gray-200">
+              <div className="absolute top-4 right-4 flex items-start justify-end z-50">
+                <div className="bg-white rounded-xl w-[375px] p-6 border border-gray-200">
                 <div className="mb-4">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm text-gray-600">Setup Progress</span>
@@ -273,26 +347,65 @@ const Dashboard = () => {
                   </div>
                 </div>
                 
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">RealPeep Onboarding Checklist</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-9">RealPeep Onboarding 
+                  <br />
+                  Checklist</h3>
                 
                 <div className="space-y-4">
-                  {onboardingTasks.map((task) => (
-                    <div key={task.id} className="flex items-start space-x-3">
-                      <div className={`w-5 h-5 rounded-full flex items-center justify-center mt-0.5 ${
-                        task.completed 
-                          ? 'bg-green-500' 
-                          : 'border-2 border-gray-300'
-                      }`}>
-                        {task.completed && <CheckCircle className="w-3 h-3 text-white" />}
+                  {onboardingTasks.map((task) => {
+                    const isExpanded = expandedTask === task.id;
+                    const isCompleted = completedTasks.includes(task.id);
+                    return (
+                      <div key={task.id} className=" rounded-lg p-1 hover:bg-gray-50 transition-colors">
+                        <div className="flex items-start space-x-3">
+                          <div 
+                            className={`w-5 h-5 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0 cursor-pointer transition-colors ${
+                              isCompleted 
+                                ? 'bg-green-500 hover:bg-green-600' 
+                                : 'border-2 border-gray-300 hover:border-green-400'
+                            }`}
+                            onClick={(e) => toggleTaskCompletion(task.id, e)}
+                          >
+                            {isCompleted && <CheckCircle className="w-3 h-3 text-white" />}
+                          </div>
+                          <div 
+                            className="flex-1 cursor-pointer"
+                            onClick={() => toggleTaskExpansion(task.id)}
+                          >
+                            <div className="flex items-center justify-between">
+                              <p className="text-sm font-medium text-gray-900">
+                                {task.title}
+                                {task.optional && (
+                                  <span className="text-xs text-gray-500 ml-1">(Optional)</span>
+                                )}
+                              </p>
+                              <div className="flex items-center space-x-2">
+                                {task.optional && (
+                                  <span className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-full">
+                                    Optional
+                                  </span>
+                                )}
+                                <div className="w-4 h-4 flex items-center justify-center">
+                                  {isExpanded ? (
+                                    <svg className="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                                    </svg>
+                                  ) : (
+                                    <svg className="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                            {isExpanded && task.description && (
+                              <p className="text-xs text-gray-600 mt-2 pr-4">{task.description}</p>
+                            )}
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">{task.title}</p>
-                        {task.description && (
-                          <p className="text-xs text-gray-600 mt-1">{task.description}</p>
-                        )}
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
                 
                 <Button 
@@ -301,14 +414,15 @@ const Dashboard = () => {
                 >
                   Don't show this again
                 </Button>
+                </div>
               </div>
             )}
           </div>
 
           {/* Bottom Row */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="flex flex-col lg:flex-row gap-[24px]">
             {/* Upcoming Events */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200">
+            <div className="bg-white rounded-xl w-[422.33px] h-[346px] p-6 border border-gray-200">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">Upcoming Events</h3>
                 <Button 
@@ -340,7 +454,7 @@ const Dashboard = () => {
             </div>
 
             {/* Earnings */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200">
+            <div className="flex flex-col w-[422.33px] h-[346px] bg-white rounded-xl p-6 border border-gray-200">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">Earnings</h3>
                 <Button 
@@ -388,7 +502,7 @@ const Dashboard = () => {
             </div>
 
             {/* Activity */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200">
+            <div className="flex flex-col w-[422.33px] h-[346px] bg-white rounded-xl p-6 border border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Activity</h3>
               
               <div className="space-y-3">
