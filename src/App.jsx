@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Signup from './auth/Signup'
-import Login from './auth/login'
+import Login from './auth/Login'
 import Forgot from './auth/Forgot'
 import SetNewP from './auth/SetNewP'
 import Dashboard from './auth/Dashboard'
