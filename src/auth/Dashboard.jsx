@@ -3,6 +3,7 @@ import { Button } from '../components/ui/button';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { 
+  
   Search, 
   Plus, 
   Sun, 
@@ -21,7 +22,7 @@ import transactionsIcon from '../assets/trans.icon.svg.svg'
 import calendarIcon from '../assets/Calender icon.svg'
 import prospectsIcon from '../assets/Prospecting icon.svg'
 import financesIcon from '../assets/Finance icon.svg'
-import frameImage from '../assets/frame.png'
+import frameImage from '../assets/Frame.png'
 
 const Dashboard = () => {
   // State management
