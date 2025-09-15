@@ -21,6 +21,7 @@ import transactionsIcon from '../assets/trans.icon.svg.svg'
 import calendarIcon from '../assets/Calender icon.svg'
 import prospectsIcon from '../assets/Prospecting icon.svg'
 import financesIcon from '../assets/Finance icon.svg'
+import frameImage from '../assets/frame.png'
 
 const Dashboard = () => {
   // State management
@@ -31,6 +32,7 @@ const Dashboard = () => {
   const [notifications, setNotifications] = useState(1);
   const [expandedTask, setExpandedTask] = useState(1); // Track which task is expanded
   const [completedTasks, setCompletedTasks] = useState([1]); // Track completed tasks
+  const [sidebarOpen, setSidebarOpen] = useState(false); // Track sidebar state
 
   // Sample data
   const sidebarItems = [
@@ -135,14 +137,29 @@ const Dashboard = () => {
     );
   };
 
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   // Calculate progress
   const completedTasksCount = completedTasks.length;
   const progressPercentage = (completedTasksCount / onboardingTasks.length) * 100;
 
   return (
     <div className="min-h-screen bg-gray-50 flex overflow-hidden">
+      {/* Mobile Toggle Button */}
+      <button
+        onClick={toggleSidebar}
+        className="lg:hidden fixed top-4 left-4 z-50 p-2 bg-white rounded-lg shadow-lg border border-gray-200"
+      >
+        <Icon icon="material-symbols:menu" className="w-6 h-6 text-gray-600" />
+      </button>
+
       {/* Left Sidebar */}
-      <div className="w-[76px] bg-gray-50 border-r border-gray-200 flex flex-col items-center py-6 space-y-6 flex-shrink-0">
+      <div className={`w-[76px] bg-gray-50 border-r border-gray-200 flex flex-col items-center py-6 space-y-6 flex-shrink-0 transition-transform duration-300 ${
+        sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+      } fixed lg:relative z-30 h-full lg:top-0 top-16`}>
+        
         <div className="flex items-center space-x-2">
           <div className="w-[54px] h-[54px]">
             <img src={logoImage} alt=""/>
@@ -184,7 +201,9 @@ const Dashboard = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className={`flex-1 flex flex-col min-w-0 w-full transition-all duration-300 ${
+        sidebarOpen ? 'ml-[76px]' : 'ml-0'
+      } lg:ml-0`}>
         {/* Top Bar */}
         <div className="bg-white border-b border-gray-200 px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
@@ -333,7 +352,7 @@ const Dashboard = () => {
             {/* Onboarding Checklist */}
             {showOnboarding && (
               <div className="absolute top-4 right-4 flex items-start justify-end z-50">
-                <div className="bg-white rounded-xl w-[375px] p-6 border border-gray-200">
+                <div className="bg-white rounded-xl w-[375px] max-w-[calc(100vw-2rem)] p-6 border border-gray-200">
                 <div className="mb-4">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm text-gray-600">Setup Progress</span>
@@ -502,17 +521,11 @@ const Dashboard = () => {
             </div>
 
             {/* Activity */}
-            <div className="flex flex-col w-[422.33px] h-[346px] bg-white rounded-xl p-6 border border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Activity</h3>
+            <div className="flex flex-col w-[422.33px] h-[346px] bg-white rounded-xl p-4 border border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-1">Activity</h3>
               
-              <div className="space-y-3">
-                {recentActivity.map((activity) => (
-                  <div key={activity.id} className="flex items-center space-x-3">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <p className="text-sm text-gray-900">{activity.action}</p>
-                    <span className="text-xs text-gray-500 ml-auto">{activity.time}</span>
-                  </div>
-                ))}
+              <div className="flex-1 flex items-start justify-center -mt-24">
+                <img src={frameImage} alt="Activity" className="w-full h-full object-contain" />
               </div>
             </div>
           </div>
