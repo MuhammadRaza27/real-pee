@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '../components/ui/button';
 import { Link } from 'react-router-dom';
-import badgeImage from '../assets/badge.svg'
+import badgeImage from '../assets/Badge.svg'
 import badgeBaseImage from '../assets/_Badge base.svg'
 import { Icon } from '@iconify/react';
 import { 
