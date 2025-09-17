@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Button } from '../components/ui/button';
 import { Link } from 'react-router-dom';
+import badgeImage from '../assets/badge.svg'
+import badgeBaseImage from '../assets/_Badge base.svg'
 import { Icon } from '@iconify/react';
 import { 
   
@@ -157,7 +159,7 @@ const Dashboard = () => {
       </button>
 
       {/* Left Sidebar */}
-      <div className={`w-[76px] bg-gray-50 border-r border-gray-200 flex flex-col items-center py-6 space-y-6 flex-shrink-0 transition-transform duration-300 ${
+      <div className={`w-[76px] bg-gray-50 border-r border-gray-200 flex flex-col items-center py-2 space-y-6 flex-shrink-0 transition-transform duration-300 ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       } fixed lg:relative z-30 h-full lg:top-0 top-16`}>
         
@@ -177,7 +179,7 @@ const Dashboard = () => {
                 onClick={() => handleSidebarClick(item.id)}
                 className={`w-12 h-12 rounded-[100px] flex items-center justify-center transition-colors ${
                   isActive 
-                    ? 'bg-green-100 text-green-600' 
+                    ? 'bg-red-100 text-green-600' 
                     : ' text-gray-600 hover:bg-gray-200'
                 }`}
                 title={item.label}
@@ -209,21 +211,18 @@ const Dashboard = () => {
         <div className="bg-white border-b border-gray-200 px-4 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2">
-              <div className="">
-                <Eye className="w-5 h-5 text-white" />
-              </div>
             </div>
           </div>
 
-          <div className="flex-1 max-w-md mx-4">
+          <div className="flex-1 flex items-start pl-2">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#667085] w-5 h-5" />
               <input
                 type="text"
                 placeholder="Search for transactions, clients, finances"
                 value={searchQuery}
-                onChange={handleSearch}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                onChange={handleSearch} 
+              className="w-[400px] h-[40px] pl-10 pr-4 py-2 border border-[#E5E7EB] text-base text-[#6E6E6E] placeholder:text-[#6E6E6E] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
               />
             </div>
           </div>
@@ -263,9 +262,9 @@ const Dashboard = () => {
         </div>
 
         {/* Main Dashboard Content */}
-        <div className="flex-1 p-4 relative overflow-x-auto">
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold text-gray-900">Welcome back</h1>
+        <div className="flex-1 p-6 relative overflow-x-auto">
+          <div className="mb-8 mt-2">
+            <h1 className="text-[24px] font-bold text-[#1A1A1A]">Welcome back</h1>
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-[24px] mb-6">
@@ -273,35 +272,52 @@ const Dashboard = () => {
             <div className="bg-white rounded-xl xl:col-span-2 h-[346px] p-6 border border-gray-200">
               <div className="flex items-center justify-between mb-4">
                  <div className="flex items-center space-x-3">
-                   <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                     <Icon icon="material-symbols:attach-money" className="w-5 h-5 text-green-600" />
+                   <div className="w-10 h-10 rounded-lg flex items-center justify-center">
+                     <img src={badgeImage} alt="Badge" className="w-20 h-20" />
                    </div>
-                   <h3 className="text-lg font-semibold text-gray-900">Commission</h3>
+                   <h3 className="text-lg font-medium text-gray-900">Commission</h3>
                  </div>
               </div>
               
-              <div className="space-y-4">
-                <div >
-                  <p className="text-sm text-gray-600">Net Commission</p>
-                  <p className="text-2xl font-bold text-gray-900">$400k</p>
-                  <div className="flex items-center space-x-2 mt-1">
-                    <TrendingUp className="w-4 h-4 text-green-500" />
-                    <span className="text-sm text-green-600">+12% from last year</span>
+              <div className="">
+                <div className="grid grid-cols-2">
+                  <div className="text-left flex flex-col justify-start">
+                    <p className="text-[12px] text-[#323B4A]">Net Commission</p>
+                    <p className="text-2xl font-bold text-[#00875A]">$400k</p>
+                    
+                  </div>
+                  
+                  <div className="text-left flex flex-col justify-start">
+                    <p className="text-[12px] text-[#323B4A]">GCI</p>
+                    <p className="text-[24px] font-bold text-[#1A1A1A]">$400k</p>
                   </div>
                 </div>
-                
+                <div className="flex items-center space-x-2 mt-1">
+                      {/* <TrendingUp className="w-4 h-4 text-green-500" /> */}
+                      <span className="text-sm text-[#31951D]">+12% from last year</span>
+                  </div>          
                 <div>
-                  <p className="text-sm text-gray-600">GCI</p>
-                  <p className="text-xl font-semibold text-gray-900">$400k</p>
-                </div>
-                
-                <div>
-                  <div className="flex justify-between text-sm text-gray-600 mb-2">
+                  <div className="flex justify-between text-sm text-gray-600 mb-2 mt-8">
                     <span>Goal: $700 Commission</span>
                     <span>70%</span>
                   </div>
-                  <div className="">
-                    <div className="bg-blue-500 h-2 rounded-full transition-all duration-300" style={{width: '70%'}}></div>
+                  <div className="relative">
+                    <div className="w-full bg-gray-300 h-4 rounded-full">
+                      <div className="bg-[#0065FF] h-4 rounded-full transition-all duration-300 relative" style={{width: '70%'}}>
+                        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-3 h-3 bg-[#E5E7EB] rounded-full border-2 border-blue-500"></div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Closed Volume Line */}
+                  <div className="mt-8 flex items-center justify-between py-3">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-10 h-10 flex items-center justify-center">
+                        <img src={badgeBaseImage} alt="Badge" className="w-10 h-10" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-900">Closed Volume</span>
+                    </div>
+                    <span className="text-lg font-semibold text-green-600">$8.5M</span>
                   </div>
                 </div>
               </div>

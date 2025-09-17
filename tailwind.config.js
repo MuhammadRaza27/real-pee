@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: { 
-        sans: ['Inter', 'ui-sans-serif', 'system-ui'] 
+        sans: ['Satoshi', 'Inter', 'ui-sans-serif', 'system-ui'] 
       },
       colors: {
         ink: '#0F172A', 
