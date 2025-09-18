@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import logoImage from '../assets/logo.image.svg'
 import bgImage from '../assets/bg-image.svg'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '../components/ui/button.jsx'
 import { Input } from '../components/ui/input.jsx'
 import { Label } from '../components/ui/label.jsx'
 
 const Login = () => {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -30,8 +31,8 @@ const Login = () => {
     e.preventDefault()
     console.log('Form data:', formData)
     alert('Logged in successfully (demo)')
-    // Navigate to dashboard after alert
-    window.location.href = '/dashboard'
+    // Navigate to dashboard using React Router
+    navigate('/dashboard')
   }
 
   return (
