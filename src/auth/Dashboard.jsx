@@ -297,7 +297,7 @@ const Dashboard = () => {
                       <span className="text-sm text-[#31951D]">+12% from last year</span>
                   </div>          
                 <div>
-                  <div className="flex justify-between text-sm text-gray-600 mb-2 mt-8">
+                  <div className="flex justify-between text-[12px] text-[#323B4A] font-medium mb-2 mt-8">
                     <span>Goal: $700 Commission</span>
                     <span>70%</span>
                   </div>
@@ -311,13 +311,13 @@ const Dashboard = () => {
                   
                   {/* Closed Volume Line */}
                   <div className="mt-8 flex items-center justify-between py-3">
-                    <div className="flex items-center space-x-3">
+                    <div className="flex items-center space-x-2">
                       <div className="w-10 h-10 flex items-center justify-center">
                         <img src={badgeBaseImage} alt="Badge" className="w-10 h-10" />
                       </div>
-                      <span className="text-sm font-medium text-gray-900">Closed Volume</span>
+                      <span className="text-base font-medium text-[#1A1A1A]">Closed Volume</span>
                     </div>
-                    <span className="text-lg font-semibold text-green-600">$8.5M</span>
+                    <span className="text-sm font-bold text-[#00875A]">$8.5M</span>
                   </div>
                 </div>
               </div>
@@ -372,13 +372,13 @@ const Dashboard = () => {
                 <div className="bg-white rounded-xl w-[375px] max-w-[calc(100vw-2rem)] p-6 border border-gray-200">
                 <div className="mb-4">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm text-gray-600">Setup Progress</span>
-                    <span className="text-sm font-semibold text-gray-900">{Math.round(progressPercentage)}%</span>
+                    <span className="text-[20px] font-bold text-[#1A1A1A]">Setup Progress : {Math.round(progressPercentage)}%</span>
+                    
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2">
                     <div 
                       className="bg-blue-500 h-2 rounded-full transition-all duration-300" 
-                      style={{width: `${progressPercentage}%`}}
+                      style={{width:  `${progressPercentage}%`}}
                     ></div>
                   </div>
                 </div>

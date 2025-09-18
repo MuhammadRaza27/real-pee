@@ -28,8 +28,10 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    alert('Logged in successfully (demo)')
     console.log('Form data:', formData)
+    alert('Logged in successfully (demo)')
+    // Navigate to dashboard after alert
+    window.location.href = '/dashboard'
   }
 
   return (
@@ -98,7 +100,7 @@ const Login = () => {
               type="submit"
               className='!bg-[#00875A] text-white'
             >
-             <Link to="/dashboard"> Sign in</Link>
+              Sign in
             </Button>
 
             <Button 
