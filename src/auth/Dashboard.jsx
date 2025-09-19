@@ -460,10 +460,10 @@ const Dashboard = () => {
             {/* Upcoming Events */}
             <div className="bg-white rounded-xl w-[422.33px] h-[346px] p-6 border border-gray-200">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-900">Upcoming Events</h3>
+                <h3 className="text-lg font-medium text-[#1A1A1A]">Upcoming Events</h3>
                 <Button 
                   onClick={handleViewCalendar}
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm"
+                  className="text-[#00875A] px-3 py-2 border border-[#00875A] rounded-lg text-sm"
                 >
                   View Calendar
                 </Button>
@@ -471,10 +471,10 @@ const Dashboard = () => {
               
               <div className="space-y-4">
                 {upcomingEvents.map((event, index) => (
-                  <div key={event.id} className={`flex items-center justify-between py-3 ${
-                    index < upcomingEvents.length - 1 ? 'border-b border-gray-100' : ''
-                  }`}>
-                    <div>
+                  <div key={event.id} className={`flex items-center justify-between py-3 relative rounded-l-[8px] rounded-r-[8px] ${
+                    index < upcomingEvents.length - 0 ? ' bg-[#F9FAFB]' : ''
+                  }`} style={{borderLeft: '2px solid #00875A'}}>
+                    <div className="ml-4">
                       <p className="text-sm font-medium text-gray-900">{event.title}</p>
                       <p className="text-xs text-gray-600">{event.date} • {event.time}</p>
                     </div>
