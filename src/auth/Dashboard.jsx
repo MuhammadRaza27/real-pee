@@ -25,6 +25,7 @@ import calendarIcon from '../assets/Calender icon.svg'
 import prospectsIcon from '../assets/Prospecting icon.svg'
 import financesIcon from '../assets/Finance icon.svg'
 import frameImage from '../assets/Frame.png'
+import WebsiteTour from '../components/WebsiteTour';
 
 const Dashboard = () => {
   // State management
@@ -176,7 +177,8 @@ const Dashboard = () => {
   const progressPercentage = (completedTasksCount / onboardingTasks.length) * 100;
 
   return (
-    <div className="min-h-screen bg-gray-50 flex overflow-hidden">
+    <WebsiteTour>
+      <div className="min-h-screen bg-gray-50 flex overflow-hidden">
       {/* Mobile Toggle Button */}
       <button
         onClick={toggleSidebar}
@@ -188,7 +190,7 @@ const Dashboard = () => {
       {/* Left Sidebar */}
       <div className={`w-[76px] bg-gray-50 border-r border-gray-200 flex flex-col items-center py-2 space-y-6 flex-shrink-0 transition-transform duration-300 ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-      } fixed lg:relative z-30 h-full lg:top-0 top-16`}>
+      } fixed lg:relative z-30 h-full lg:top-0 top-16`} data-tour="sidebar">
         
         <div className="flex items-center space-x-2">
           <div className="w-[54px] h-[54px]">
@@ -239,16 +241,16 @@ const Dashboard = () => {
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
             {/* Search Bar */}
             <div className="w-full lg:flex-1 lg:max-w-md xl:max-w-lg">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#667085] w-5 h-5" />
-                <input
-                  type="text"
-                  placeholder="Search for transactions, clients, finances"
-                  value={searchQuery}
-                  onChange={handleSearch} 
-                className="w-full h-[40px] pl-10 pr-4 py-2 border border-[#E5E7EB] text-base text-[#6E6E6E] placeholder:text-[#6E6E6E] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-                />
-              </div>
+            <div className="relative" data-tour="search">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#667085] w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search for transactions, clients, finances"
+                value={searchQuery}
+                onChange={handleSearch} 
+              className="w-full h-[40px] pl-10 pr-4 py-2 border border-[#E5E7EB] text-base text-[#6E6E6E] placeholder:text-[#6E6E6E] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              />
+            </div>
             </div>
 
             {/* Action Buttons */}
@@ -256,19 +258,20 @@ const Dashboard = () => {
             <Button 
               onClick={handleAddTransaction}
               className="bg-[#00875A] hover:bg-green-700 text-white px-3 py-2 rounded-lg flex items-center space-x-2 text-sm"
+              data-tour="add-transaction"
             >
               <Plus className="w-4 h-4" />
               <span className="hidden sm:inline">Add Transactions</span>
             </Button>
             <button 
               onClick={toggleDarkMode}
-              className="p-2 bg-white shadow-sm rounded-full text-[#1E1E1E] hover:text-gray-600"
+              className="p-[14px] bg-white shadow-sm rounded-full text-[#344054] hover:text-gray-600"
             >
               <Sun className="w-5 h-5" />
             </button>
             <button 
               onClick={handleNotificationClick}
-              className="p-2 bg-white shadow-sm rounded-full text-[#1E1E1E] hover:text-gray-600 relative"
+              className="p-[14px] bg-white shadow-sm rounded-full text-[#344054] hover:text-gray-600 relative"
             >
               <Bell className="w-5 h-5" />
               {notifications > 0 && (
@@ -278,9 +281,9 @@ const Dashboard = () => {
               )}
             </button>
             <div className="flex items-center space-x-2 px-3 py-1">
-              <span className="p-2 bg-white shadow-sm rounded-full text-[#9333EA]">1/4</span>
+              <span className="p-[14px] shadow-[#9333EA] bg-white shadow-sm rounded-full text-[#9333EA] font-medium">1/4</span>
             </div>
-            <button className="p-2 text-gray-400 hover:text-gray-600">
+            <button className="p-[14px] text-[#344054]  bg-white shadow-sm rounded-full hover:text-gray-600">
               <User className="w-5 h-5" />
             </button>
             </div>
@@ -289,13 +292,13 @@ const Dashboard = () => {
 
         {/* Main Dashboard Content */}
         <div className="flex-1 p-6 relative overflow-x-auto">
-          <div className="mb-8 mt-2">
+          <div className="mb-8 mt-2" data-tour="welcome">
             <h1 className="text-[24px] font-bold text-[#1A1A1A]">Welcome back</h1>
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-[24px] mb-6">
             {/* Commission Card */}
-            <div className="bg-white rounded-xl xl:col-span-2 h-[346px] p-6 border border-gray-200">
+            <div className="bg-white rounded-xl xl:col-span-2 h-[346px] p-6 border border-gray-200" data-tour="commission-card">
               <div className="flex items-center justify-between mb-4">
                  <div className="flex items-center space-x-3">
                    <div className="w-10 h-10 rounded-lg flex items-center justify-center">
@@ -350,7 +353,7 @@ const Dashboard = () => {
             </div>
 
             {/* Transactions Card */}
-            <div className="bg-white rounded-xl xl:col-span-1 h-[346px] p-6 border border-gray-200">
+            <div className="bg-white rounded-xl xl:col-span-1 h-[346px] p-6 border border-gray-200" data-tour="transactions-card">
               <h3 className="text-lg font-semibold text-gray-900 mb-6">Transactions</h3>
               
               <div className="flex justify-between items-center h-full relative ">
@@ -394,7 +397,7 @@ const Dashboard = () => {
 
             {/* Onboarding Checklist */}
             {showOnboarding && (
-              <div className="absolute top-4 right-4 flex items-start justify-end z-50">
+              <div className="absolute top-4 right-4 flex items-start justify-end z-50" data-tour="onboarding">
                 <div className="bg-white rounded-xl w-[375px] max-w-[calc(100vw-2rem)] p-6 border border-gray-200">
                 <div className="mb-4">
                   <div className="flex justify-between items-center mb-2">
@@ -484,7 +487,7 @@ const Dashboard = () => {
           {/* Bottom Row */}
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-[24px]">
             {/* Upcoming Events */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200">
+            <div className="bg-white rounded-xl p-6 border border-gray-200" data-tour="upcoming-events">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-medium text-[#1A1A1A]">Upcoming Events</h3>
                 <Button 
@@ -516,7 +519,7 @@ const Dashboard = () => {
             </div>
 
             {/* Earnings */}
-            <div className="flex flex-col bg-white rounded-xl p-6 border border-gray-200">
+            <div className="flex flex-col bg-white rounded-xl p-6 border border-gray-200" data-tour="earnings">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-[#1A1A1A]">Earnings</h3>
                 <Button 
@@ -566,7 +569,7 @@ const Dashboard = () => {
             </div>
 
             {/* Activity */}
-            <div className="flex flex-col rounded-xl bg-white  p-4 border border-gray-200">
+            <div className="flex flex-col rounded-xl bg-white  p-4 border border-gray-200" data-tour="activity">
               <h3 className="text-lg font-semibold text-[#1A1A1A] mb-4">Activity</h3>
               
               <div className="space-y-4">
@@ -595,7 +598,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </WebsiteTour>
   );
 };
 
