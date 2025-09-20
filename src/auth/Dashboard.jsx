@@ -235,26 +235,24 @@ const Dashboard = () => {
         sidebarOpen ? 'ml-[76px]' : 'ml-0'
       } lg:ml-0`}>
         {/* Top Bar */}
-        <div className="bg-white border-b border-gray-200 px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
+        <div className="bg-white border-b border-gray-200 px-2 sm:px-4 py-4">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+            {/* Search Bar */}
+            <div className="w-full lg:flex-1 lg:max-w-md xl:max-w-lg">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#667085] w-5 h-5" />
+                <input
+                  type="text"
+                  placeholder="Search for transactions, clients, finances"
+                  value={searchQuery}
+                  onChange={handleSearch} 
+                className="w-full h-[40px] pl-10 pr-4 py-2 border border-[#E5E7EB] text-base text-[#6E6E6E] placeholder:text-[#6E6E6E] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="flex-1 flex items-start pl-2">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#667085] w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Search for transactions, clients, finances"
-                value={searchQuery}
-                onChange={handleSearch} 
-              className="w-[400px] h-[40px] pl-10 pr-4 py-2 border border-[#E5E7EB] text-base text-[#6E6E6E] placeholder:text-[#6E6E6E] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center space-x-2">
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full lg:w-auto justify-end">
             <Button 
               onClick={handleAddTransaction}
               className="bg-[#00875A] hover:bg-green-700 text-white px-3 py-2 rounded-lg flex items-center space-x-2 text-sm"
@@ -285,6 +283,7 @@ const Dashboard = () => {
             <button className="p-2 text-gray-400 hover:text-gray-600">
               <User className="w-5 h-5" />
             </button>
+            </div>
           </div>
         </div>
 
