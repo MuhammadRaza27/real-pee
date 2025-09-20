@@ -59,6 +59,33 @@ const Dashboard = () => {
     { id: 4, action: '20 conversations logged', time: '5 mins ago' }
   ];
 
+  const activities = [
+    {
+      icon: '💸',
+      text: '2 Transactions Created',
+      time: '~ 5 mins ago',
+      color: 'text-yellow-600'
+    },
+    {
+      icon: '💸',
+      text: '3 Transactions Closed',
+      time: '~ 5 mins ago',
+      color: 'text-green-600'
+    },
+    {
+      icon: '📅',
+      text: '2 Appointments scheduled',
+      time: '~ 5 mins ago',
+      color: 'text-red-600'
+    },
+    {
+      icon: '💬',
+      text: '20 conversations logged',
+      time: '~ 5 mins ago',
+      color: 'text-gray-600'
+    }
+  ];
+
   const onboardingTasks = [
     { 
       id: 1, 
@@ -230,30 +257,30 @@ const Dashboard = () => {
           <div className="flex items-center space-x-2">
             <Button 
               onClick={handleAddTransaction}
-              className="bg-green-600 hover:bg-green-700 text-white px-3 py-2 rounded-lg flex items-center space-x-2 text-sm"
+              className="bg-[#00875A] hover:bg-green-700 text-white px-3 py-2 rounded-lg flex items-center space-x-2 text-sm"
             >
               <Plus className="w-4 h-4" />
               <span className="hidden sm:inline">Add Transactions</span>
             </Button>
             <button 
               onClick={toggleDarkMode}
-              className="p-2 text-gray-400 hover:text-gray-600"
+              className="p-2 bg-white shadow-sm rounded-full text-[#1E1E1E] hover:text-gray-600"
             >
               <Sun className="w-5 h-5" />
             </button>
             <button 
               onClick={handleNotificationClick}
-              className="p-2 text-gray-400 hover:text-gray-600 relative"
+              className="p-2 bg-white shadow-sm rounded-full text-[#1E1E1E] hover:text-gray-600 relative"
             >
               <Bell className="w-5 h-5" />
               {notifications > 0 && (
-                <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full text-xs text-white flex items-center justify-center">
+                <span className="absolute -top-1 -right-1 w-3 h-3  rounded-full text-xs text-white flex items-center justify-center">
                   {notifications}
                 </span>
               )}
             </button>
-            <div className="flex items-center space-x-2 bg-gray-100 rounded-lg px-3 py-1">
-              <span className="text-sm text-gray-600">1/4</span>
+            <div className="flex items-center space-x-2 px-3 py-1">
+              <span className="p-2 bg-white shadow-sm rounded-full text-[#9333EA]">1/4</span>
             </div>
             <button className="p-2 text-gray-400 hover:text-gray-600">
               <User className="w-5 h-5" />
@@ -456,9 +483,9 @@ const Dashboard = () => {
           </div>
 
           {/* Bottom Row */}
-          <div className="flex flex-col lg:flex-row gap-[24px]">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-[24px]">
             {/* Upcoming Events */}
-            <div className="bg-white rounded-xl w-[422.33px] h-[346px] p-6 border border-gray-200">
+            <div className="bg-white rounded-xl h-[346px] p-6 border border-gray-200">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-medium text-[#1A1A1A]">Upcoming Events</h3>
                 <Button 
@@ -471,16 +498,16 @@ const Dashboard = () => {
               
               <div className="space-y-4">
                 {upcomingEvents.map((event, index) => (
-                  <div key={event.id} className={`flex items-center justify-between py-3 relative rounded-l-[8px] rounded-r-[8px] ${
-                    index < upcomingEvents.length - 0 ? ' bg-[#F9FAFB]' : ''
+                  <div key={event.id} className={`flex items-center justify-between py-2 relative rounded-l-[8px] rounded-r-[8px] ${
+                    index < upcomingEvents.length - 0 ? ' bg-[#F9FAFB] py-4' : ''
                   }`} style={{borderLeft: '2px solid #00875A'}}>
                     <div className="ml-4">
                       <p className="text-sm font-medium text-gray-900">{event.title}</p>
-                      <p className="text-xs text-gray-600">{event.date} • {event.time}</p>
+                      <p className="text-xs text-gray-600 mt-1">{event.date} • {event.time}</p>
                     </div>
                     <button 
                       onClick={() => handleEventMenuClick(event.id)}
-                      className="p-1 text-gray-400 hover:text-gray-600"
+                      className=" mr-2 p-2 rounded-[8px] text-[#00875A] hover:text-gray-600 bg-[#EBF6E9]"
                     >
                       <MoreVertical className="w-4 h-4" />
                     </button>
@@ -490,47 +517,49 @@ const Dashboard = () => {
             </div>
 
             {/* Earnings */}
-            <div className="flex flex-col w-[422.33px] h-[346px] bg-white rounded-xl p-6 border border-gray-200">
+            <div className="flex flex-col h-[346px] bg-white rounded-xl p-6 border border-gray-200">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">Earnings</h3>
                 <Button 
                   onClick={handleViewReports}
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm"
+                  className="text-[#00875A] px-3 py-2 border border-[#00875A] rounded-lg text-sm"
                 >
                   View Reports
                 </Button>
               </div>
               
               <div className="space-y-4">
-                <div>
-                  <p className="text-sm text-gray-600">Net Income</p>
-                  <div className="flex items-center space-x-2">
+                <div className="py-2">
+                  <p className="text-sm font-medium text-gray-900">Net Income</p>
+                  <div className="flex items-center justify-between mt-1">
                     <p className="text-xl font-semibold text-gray-900">$150,000</p>
                     <div className="flex items-center space-x-1">
                       <TrendingUp className="w-4 h-4 text-green-500" />
-                      <span className="text-sm text-green-600">+12.5% from last month</span>
+                      <span className="text-xs text-green-600">+12.5% from last month</span>
                     </div>
                   </div>
+                  <div className="border-b border-gray-200 mt-3"></div>
                 </div>
                 
-                <div>
-                  <p className="text-sm text-gray-600">Business Expenses (This month)</p>
-                  <div className="flex items-center space-x-2">
+                <div className="py-2">
+                  <p className="text-sm font-medium text-gray-900">Business Expenses (This month)</p>
+                  <div className="flex items-center justify-between mt-1">
                     <p className="text-xl font-semibold text-gray-900">$50,000</p>
                     <div className="flex items-center space-x-1">
                       <TrendingDown className="w-4 h-4 text-red-500" />
-                      <span className="text-sm text-red-600">+8.3% from last month</span>
+                      <span className="text-xs text-red-600">+8.3% from last month</span>
                     </div>
                   </div>
+                  <div className="border-b border-gray-200 mt-3"></div>
                 </div>
                 
-                <div>
-                  <p className="text-sm text-gray-600">Avg. Cost per Listing</p>
-                  <div className="flex items-center space-x-2">
+                <div className="py-2">
+                  <p className="text-sm font-medium text-gray-900">Avg. Cost per Listing</p>
+                  <div className="flex items-center justify-between mt-1">
                     <p className="text-xl font-semibold text-gray-900">$100</p>
                     <div className="flex items-center space-x-1">
                       <TrendingUp className="w-4 h-4 text-green-500" />
-                      <span className="text-sm text-green-600">+15.2% from last month</span>
+                      <span className="text-xs text-green-600">+15.2% from last month</span>
                     </div>
                   </div>
                 </div>
@@ -538,11 +567,30 @@ const Dashboard = () => {
             </div>
 
             {/* Activity */}
-            <div className="flex flex-col w-[422.33px] h-[346px] bg-white rounded-xl p-4 border border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">Activity</h3>
+            <div className="flex flex-col rounded-xl h-[346px] bg-white  p-4 border border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Activity</h3>
               
-              <div className="flex-1 flex items-start justify-center -mt-24">
-                <img src={frameImage} alt="Activity" className="w-full h-full object-contain" />
+              <div className="space-y-4">
+                {activities.map((activity, index) => (
+                  <div key={index}>
+                    <div className="flex items-center justify-between py-2">
+                      <div className="flex items-center space-x-3">
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm ${activity.color}`}>
+                          {activity.icon}
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-gray-900">{activity.text}</p>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-xs text-gray-500">{activity.time}</p>
+                      </div>
+                    </div>
+                    {index < activities.length - 1 && (
+                      <div className=""></div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
