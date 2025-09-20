@@ -484,7 +484,7 @@ const Dashboard = () => {
           {/* Bottom Row */}
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-[24px]">
             {/* Upcoming Events */}
-            <div className="bg-white rounded-xl h-[346px] p-6 border border-gray-200">
+            <div className="bg-white rounded-xl p-6 border border-gray-200">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-medium text-[#1A1A1A]">Upcoming Events</h3>
                 <Button 
@@ -501,8 +501,8 @@ const Dashboard = () => {
                     index < upcomingEvents.length - 0 ? ' bg-[#F9FAFB] py-4' : ''
                   }`} style={{borderLeft: '2px solid #00875A'}}>
                     <div className="ml-4">
-                      <p className="text-sm font-medium text-gray-900">{event.title}</p>
-                      <p className="text-xs text-gray-600 mt-1">{event.date} • {event.time}</p>
+                      <p className="text-[15px] font-medium text-[#1A1A1A]">{event.title}</p>
+                      <p className="text-sm text-[#6E6E6E] mt-1">{event.date} • {event.time}</p>
                     </div>
                     <button 
                       onClick={() => handleEventMenuClick(event.id)}
@@ -516,9 +516,9 @@ const Dashboard = () => {
             </div>
 
             {/* Earnings */}
-            <div className="flex flex-col h-[346px] bg-white rounded-xl p-6 border border-gray-200">
+            <div className="flex flex-col bg-white rounded-xl p-6 border border-gray-200">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-gray-900">Earnings</h3>
+                <h3 className="text-lg font-semibold text-[#1A1A1A]">Earnings</h3>
                 <Button 
                   onClick={handleViewReports}
                   className="text-[#00875A] px-3 py-2 border border-[#00875A] rounded-lg text-sm"
@@ -529,9 +529,9 @@ const Dashboard = () => {
               
               <div className="space-y-4">
                 <div className="py-2">
-                  <p className="text-sm font-medium text-gray-900">Net Income</p>
+                  <p className="text-[14px] text-[#1A1A1A]">Net Income</p>
                   <div className="flex items-center justify-between mt-1">
-                    <p className="text-xl font-semibold text-gray-900">$150,000</p>
+                    <p className="text-[16px] font-bold text-[#1A1A1A]">$150,000</p>
                     <div className="flex items-center space-x-1">
                       <TrendingUp className="w-4 h-4 text-green-500" />
                       <span className="text-xs text-green-600">+12.5% from last month</span>
@@ -541,9 +541,9 @@ const Dashboard = () => {
                 </div>
                 
                 <div className="py-2">
-                  <p className="text-sm font-medium text-gray-900">Business Expenses (This month)</p>
+                  <p className="text-[14px] text-[#1A1A1A]">Business Expenses (This month)</p>
                   <div className="flex items-center justify-between mt-1">
-                    <p className="text-xl font-semibold text-gray-900">$50,000</p>
+                    <p className="text-[16px] font-bold text-[#1A1A1A]">$50,000</p>
                     <div className="flex items-center space-x-1">
                       <TrendingDown className="w-4 h-4 text-red-500" />
                       <span className="text-xs text-red-600">+8.3% from last month</span>
@@ -553,9 +553,9 @@ const Dashboard = () => {
                 </div>
                 
                 <div className="py-2">
-                  <p className="text-sm font-medium text-gray-900">Avg. Cost per Listing</p>
+                  <p className="text-[14px] text-[#1A1A1A]">Avg. Cost per Listing</p>
                   <div className="flex items-center justify-between mt-1">
-                    <p className="text-xl font-semibold text-gray-900">$100</p>
+                    <p className="text-[16px] font-bold text-[#1A1A1A]">$100</p>
                     <div className="flex items-center space-x-1">
                       <TrendingUp className="w-4 h-4 text-green-500" />
                       <span className="text-xs text-green-600">+15.2% from last month</span>
@@ -566,8 +566,8 @@ const Dashboard = () => {
             </div>
 
             {/* Activity */}
-            <div className="flex flex-col rounded-xl h-[346px] bg-white  p-4 border border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Activity</h3>
+            <div className="flex flex-col rounded-xl bg-white  p-4 border border-gray-200">
+              <h3 className="text-lg font-semibold text-[#1A1A1A] mb-4">Activity</h3>
               
               <div className="space-y-4">
                 {activities.map((activity, index) => (
