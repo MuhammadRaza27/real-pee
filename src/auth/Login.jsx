@@ -31,6 +31,11 @@ const Login = () => {
     e.preventDefault()
     console.log('Form data:', formData)
     alert('Logged in successfully (demo)')
+    
+    // Clear tour localStorage so tour shows after login
+    localStorage.removeItem('realpeep-tour-seen')
+    console.log('✅ Tour localStorage cleared - tour will show after login')
+    
     // Navigate to dashboard using React Router
     navigate('/dashboard')
   }
