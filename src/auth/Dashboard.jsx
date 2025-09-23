@@ -178,7 +178,7 @@ const Dashboard = () => {
 
   return (
     <WebsiteTour>
-      <div className="min-h-screen bg-gray-50 flex overflow-hidden">
+        <div className={`min-h-screen flex overflow-hidden transition-colors duration-300 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
       {/* Mobile Toggle Button */}
       <button
         onClick={toggleSidebar}
@@ -188,9 +188,9 @@ const Dashboard = () => {
       </button>
 
       {/* Left Sidebar */}
-      <div className={`w-[76px] bg-gray-50 border-r border-gray-200 flex flex-col items-center py-2 space-y-6 flex-shrink-0 transition-transform duration-300 ${
+      <div className={`w-[76px] border-r flex flex-col items-center py-2 space-y-6 flex-shrink-0 transition-all duration-300 ${
         sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-      } fixed lg:relative z-30 h-full lg:top-0 top-16`} data-tour="sidebar">
+      } fixed lg:relative z-30 h-full lg:top-0 top-16 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-50 border-gray-200'}`} data-tour="sidebar">
         
         <div className="flex items-center space-x-2">
           <div className="w-[54px] h-[54px]">
@@ -208,8 +208,8 @@ const Dashboard = () => {
                 onClick={() => handleSidebarClick(item.id)}
                 className={`w-12 h-12 rounded-[100px] flex items-center justify-center transition-colors ${
                   isActive 
-                    ? 'bg-red-100 text-green-600' 
-                    : ' text-gray-600 hover:bg-gray-200'
+                    ? darkMode ? 'bg-red-900 text-green-400' : 'bg-red-100 text-green-600'
+                    : darkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-600 hover:bg-gray-200'
                 }`}
                 title={item.label}
               >
@@ -235,9 +235,9 @@ const Dashboard = () => {
       {/* Main Content */}
       <div className={`flex-1 flex flex-col min-w-0 w-full transition-all duration-300 ${
         sidebarOpen ? 'ml-[76px]' : 'ml-0'
-      } lg:ml-0`}>
+      } lg:ml-0 ${darkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
         {/* Top Bar */}
-        <div className="bg-white border-b border-gray-200 px-2 sm:px-4 py-4">
+        <div className={`border-b px-2 sm:px-4 py-4 transition-colors duration-300 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
             {/* Search Bar */}
             <div className="w-full lg:flex-1 lg:max-w-md xl:max-w-lg">
@@ -248,16 +248,24 @@ const Dashboard = () => {
                 placeholder="Search for transactions, clients, finances"
                 value={searchQuery}
                 onChange={handleSearch} 
-              className="w-full h-[40px] pl-10 pr-4 py-2 border border-[#E5E7EB] text-base text-[#6E6E6E] placeholder:text-[#6E6E6E] rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+              className={`w-full h-[40px] pl-10 pr-4 py-2 border text-base rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors duration-300 ${
+                darkMode 
+                  ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' 
+                  : 'border-[#E5E7EB] bg-white text-[#6E6E6E] placeholder:text-[#6E6E6E]'
+              }`}
               />
             </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full lg:w-auto justify-end">
+            <div className="flex flex-wrap items-center gap-1 sm:gap-3 w-full lg:w-auto justify-end">
             <Button 
               onClick={handleAddTransaction}
-              className="bg-[#00875A] hover:bg-green-700 text-white px-3 py-2 rounded-lg flex items-center space-x-2 text-sm"
+              className={`px-3 py-2 rounded-lg flex items-center space-x-2 text-sm transition-colors ${
+                darkMode 
+                  ? 'bg-green-600 hover:bg-green-700 text-white' 
+                  : 'bg-[#00875A] hover:bg-green-700 text-white'
+              }`}
               data-tour="add-transaction"
             >
               <Plus className="w-4 h-4" />
@@ -265,13 +273,21 @@ const Dashboard = () => {
             </Button>
             <button 
               onClick={toggleDarkMode}
-              className="p-[14px] bg-white shadow-sm rounded-full text-[#344054] hover:text-gray-600"
+              className={`p-[14px] shadow-sm rounded-full transition-colors ${
+                darkMode 
+                  ? 'text-yellow-400 bg-gray-700 hover:text-yellow-300 hover:bg-gray-600' 
+                  : 'text-[#344054] bg-white hover:text-gray-600'
+              }`}
             >
               <Sun className="w-5 h-5" />
             </button>
             <button 
               onClick={handleNotificationClick}
-              className="p-[14px] bg-white shadow-sm rounded-full text-[#344054] hover:text-gray-600 relative"
+              className={`p-[14px] shadow-sm rounded-full relative transition-colors ${
+                darkMode 
+                  ? 'text-gray-300 bg-gray-700 hover:text-white hover:bg-gray-600' 
+                  : 'text-[#344054] bg-white hover:text-gray-600'
+              }`}
             >
               <Bell className="w-5 h-5" />
               {notifications > 0 && (
@@ -280,10 +296,18 @@ const Dashboard = () => {
                 </span>
               )}
             </button>
-            <div className="flex items-center space-x-2 px-3 py-1">
-              <span className="p-[14px] shadow-[#9333EA] bg-white shadow-sm rounded-full text-[#9333EA] font-medium">1/4</span>
+            <div className="flex items-center">
+              <span className={`p-[14px] w-[48px] h-[48px] shadow-sm rounded-full font-medium flex items-center justify-center text-base transition-colors ${
+                darkMode 
+                  ? 'shadow-gray-600 bg-gray-700 text-purple-400' 
+                  : 'shadow-[#EDEBFE] bg-white text-[#9333EA]'
+              }`}>1/4</span>
             </div>
-            <button className="p-[14px] text-[#344054]  bg-white shadow-sm rounded-full hover:text-gray-600">
+            <button className={`p-[14px] shadow-sm rounded-full transition-colors ${
+              darkMode 
+                ? 'text-gray-300 bg-gray-700 hover:text-white hover:bg-gray-600' 
+                : 'text-[#344054] bg-white hover:text-gray-600'
+            }`}>
               <User className="w-5 h-5" />
             </button>
             </div>
@@ -293,47 +317,69 @@ const Dashboard = () => {
         {/* Main Dashboard Content */}
         <div className="flex-1 p-6 relative overflow-x-auto">
           <div className="mb-8 mt-2" data-tour="welcome">
-            <h1 className="text-[24px] font-bold text-[#1A1A1A]">Welcome back</h1>
+            <h1 className={`text-[24px] font-bold transition-colors duration-300 ${
+              darkMode ? 'text-white' : 'text-[#1A1A1A]'
+            }`}>Welcome back</h1>
           </div>
 
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-[24px] mb-6">
             {/* Commission Card */}
-            <div className="bg-white rounded-xl xl:col-span-2 h-[346px] p-6 border border-gray-200" data-tour="commission-card">
+            <div className={`rounded-xl xl:col-span-2 h-[346px] p-6 border transition-colors duration-300 ${
+              darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+            }`} data-tour="commission-card">
               <div className="flex items-center justify-between mb-4">
                  <div className="flex items-center space-x-3">
                    <div className="w-10 h-10 rounded-lg flex items-center justify-center">
                      <img src={badgeImage} alt="Badge" className="w-20 h-20" />
                    </div>
-                   <h3 className="text-lg font-medium text-gray-900">Commission</h3>
+                   <h3 className={`text-lg font-medium transition-colors duration-300 ${
+                     darkMode ? 'text-white' : 'text-gray-900'
+                   }`}>Commission</h3>
                  </div>
               </div>
               
               <div className="">
                 <div className="grid grid-cols-2">
                   <div className="text-left flex flex-col justify-start">
-                    <p className="text-[12px] text-[#323B4A]">Net Commission</p>
-                    <p className="text-2xl font-bold text-[#00875A]">$400k</p>
+                    <p className={`text-[12px] transition-colors duration-300 ${
+                      darkMode ? 'text-gray-300' : 'text-[#323B4A]'
+                    }`}>Net Commission</p>
+                    <p className={`text-2xl font-bold transition-colors duration-300 ${
+                      darkMode ? 'text-green-400' : 'text-[#00875A]'
+                    }`}>$400k</p>
                     
                   </div>
                   
                   <div className="text-left flex flex-col justify-start">
-                    <p className="text-[12px] text-[#323B4A]">GCI</p>
-                    <p className="text-[24px] font-bold text-[#1A1A1A]">$400k</p>
+                    <p className={`text-[12px] transition-colors duration-300 ${
+                      darkMode ? 'text-gray-300' : 'text-[#323B4A]'
+                    }`}>GCI</p>
+                    <p className={`text-[24px] font-bold transition-colors duration-300 ${
+                      darkMode ? 'text-white' : 'text-[#1A1A1A]'
+                    }`}>$400k</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2 mt-1">
                       {/* <TrendingUp className="w-4 h-4 text-green-500" /> */}
-                      <span className="text-sm text-[#31951D]">+12% from last year</span>
+                      <span className={`text-sm transition-colors duration-300 ${
+                        darkMode ? 'text-green-400' : 'text-[#31951D]'
+                      }`}>+12% from last year</span>
                   </div>          
                 <div>
-                  <div className="flex justify-between text-[12px] text-[#323B4A] font-medium mb-2 mt-8">
+                  <div className={`flex justify-between text-[12px] font-medium mb-2 mt-8 transition-colors duration-300 ${
+                    darkMode ? 'text-gray-300' : 'text-[#323B4A]'
+                  }`}>
                     <span>Goal: $700 Commission</span>
                     <span>70%</span>
                   </div>
                   <div className="relative">
-                    <div className="w-full bg-gray-300 h-4 rounded-full">
+                    <div className={`w-full h-4 rounded-full transition-colors duration-300 ${
+                      darkMode ? 'bg-gray-600' : 'bg-gray-300'
+                    }`}>
                       <div className="bg-[#0065FF] h-4 rounded-full transition-all duration-300 relative" style={{width: '70%'}}>
-                        <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-3 h-3 bg-[#E5E7EB] rounded-full border-2 border-blue-500"></div>
+                        <div className={`absolute right-0 top-1/2 transform -translate-y-1/2 w-3 h-3 rounded-full border-2 border-blue-500 transition-colors duration-300 ${
+                          darkMode ? 'bg-gray-700' : 'bg-[#E5E7EB]'
+                        }`}></div>
                       </div>
                     </div>
                   </div>
@@ -344,52 +390,82 @@ const Dashboard = () => {
                       <div className="w-10 h-10 flex items-center justify-center">
                         <img src={badgeBaseImage} alt="Badge" className="w-10 h-10" />
                       </div>
-                      <span className="text-base font-medium text-[#1A1A1A]">Closed Volume</span>
+                      <span className={`text-base font-medium transition-colors duration-300 ${
+                        darkMode ? 'text-white' : 'text-[#1A1A1A]'
+                      }`}>Closed Volume</span>
                     </div>
-                    <span className="text-sm font-bold text-[#00875A]">$8.5M</span>
+                    <span className={`text-sm font-bold transition-colors duration-300 ${
+                      darkMode ? 'text-green-400' : 'text-[#00875A]'
+                    }`}>$8.5M</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Transactions Card */}
-            <div className="bg-white rounded-xl xl:col-span-1 h-[346px] p-6 border border-gray-200" data-tour="transactions-card">
-              <h3 className="text-lg font-semibold text-gray-900 mb-6">Transactions</h3>
+            <div className={`rounded-xl xl:col-span-1 h-[346px] p-6 border transition-colors duration-300 ${
+              darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+            }`} data-tour="transactions-card">
+              <h3 className={`text-lg font-semibold mb-6 transition-colors duration-300 ${
+                darkMode ? 'text-white' : 'text-gray-900'
+              }`}>Transactions</h3>
               
               <div className="flex justify-between items-center h-full relative ">
                 {/* Active Transactions */}
                 <div className="flex flex-col  items-center space-y-3 ">
-                  <span className="inline-block px-3 py-1 text-xs  font-medium text-green-600 bg-green-100 rounded-full">
+                  <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full transition-colors duration-300 ${
+                    darkMode ? 'text-green-400 bg-green-900' : 'text-green-600 bg-green-100'
+                  }`}>
                     Active
                   </span>
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
-                    <span className="text-2xl font-bold text-gray-900">12</span>
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors duration-300 ${
+                    darkMode ? 'bg-green-900' : 'bg-green-100'
+                  }`}>
+                    <span className={`text-2xl font-bold transition-colors duration-300 ${
+                      darkMode ? 'text-white' : 'text-gray-900'
+                    }`}>12</span>
                   </div>
                 </div>
                 
                 {/* Vertical Line 1 */}
-                <div className="absolute left-1/3 top-1/2 transform -translate-y-1/2 w-px h-40 bg-gray-300"></div>
+                <div className={`absolute left-1/3 top-1/2 transform -translate-y-1/2 w-px h-40 transition-colors duration-300 ${
+                  darkMode ? 'bg-gray-600' : 'bg-gray-300'
+                }`}></div>
                 
                 {/* Pending Transactions */}
                 <div className="flex flex-col items-center space-y-3">
-                  <span className="inline-block px-3 py-1 text-xs font-medium text-orange-600 bg-orange-100 rounded-full">
+                  <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full transition-colors duration-300 ${
+                    darkMode ? 'text-orange-400 bg-orange-900' : 'text-orange-600 bg-orange-100'
+                  }`}>
                     Pending
                   </span>
-                  <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center">
-                    <span className="text-2xl font-bold text-gray-900">14</span>
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors duration-300 ${
+                    darkMode ? 'bg-orange-900' : 'bg-orange-100'
+                  }`}>
+                    <span className={`text-2xl font-bold transition-colors duration-300 ${
+                      darkMode ? 'text-white' : 'text-gray-900'
+                    }`}>14</span>
                   </div>
                 </div>
                 
                 {/* Vertical Line 2 */}
-                <div className="absolute right-1/3 top-1/2 transform -translate-y-1/2 w-px h-40 bg-gray-300"></div>
+                <div className={`absolute right-1/3 top-1/2 transform -translate-y-1/2 w-px h-40 transition-colors duration-300 ${
+                  darkMode ? 'bg-gray-600' : 'bg-gray-300'
+                }`}></div>
                 
                 {/* Closed Transactions */}
                 <div className="flex flex-col items-center space-y-3">
-                  <span className="inline-block px-3 py-1 text-xs font-medium text-red-600 bg-red-100 rounded-full">
+                  <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full transition-colors duration-300 ${
+                    darkMode ? 'text-red-400 bg-red-900' : 'text-red-600 bg-red-100'
+                  }`}>
                     Closed
                   </span>
-                  <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
-                    <span className="text-2xl font-bold text-gray-900">2</span>
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors duration-300 ${
+                    darkMode ? 'bg-red-900' : 'bg-red-100'
+                  }`}>
+                    <span className={`text-2xl font-bold transition-colors duration-300 ${
+                      darkMode ? 'text-white' : 'text-gray-900'
+                    }`}>2</span>
                   </div>
                 </div>
               </div>
@@ -487,12 +563,20 @@ const Dashboard = () => {
           {/* Bottom Row */}
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-[24px]">
             {/* Upcoming Events */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200" data-tour="upcoming-events">
+            <div className={`rounded-xl p-6 border transition-colors duration-300 ${
+              darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+            }`} data-tour="upcoming-events">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-medium text-[#1A1A1A]">Upcoming Events</h3>
+                <h3 className={`text-lg font-medium transition-colors duration-300 ${
+                  darkMode ? 'text-white' : 'text-[#1A1A1A]'
+                }`}>Upcoming Events</h3>
                 <Button 
                   onClick={handleViewCalendar}
-                  className="text-[#00875A] px-3 py-2 border border-[#00875A] rounded-lg text-sm"
+                  className={`px-3 py-2 border rounded-lg text-sm transition-colors duration-300 ${
+                    darkMode 
+                      ? 'text-green-400 border-green-400 hover:bg-green-900' 
+                      : 'text-[#00875A] border-[#00875A] hover:bg-green-50'
+                  }`}
                 >
                   View Calendar
                 </Button>
@@ -501,15 +585,23 @@ const Dashboard = () => {
               <div className="space-y-4">
                 {upcomingEvents.map((event, index) => (
                   <div key={event.id} className={`flex items-center justify-between py-2 relative rounded-l-[8px] rounded-r-[8px] ${
-                    index < upcomingEvents.length - 0 ? ' bg-[#F9FAFB] py-4' : ''
+                    index < upcomingEvents.length - 0 ? darkMode ? 'bg-gray-700 py-4' : 'bg-[#F9FAFB] py-4' : ''
                   }`} style={{borderLeft: '2px solid #00875A'}}>
                     <div className="ml-4">
-                      <p className="text-[15px] font-medium text-[#1A1A1A]">{event.title}</p>
-                      <p className="text-sm text-[#6E6E6E] mt-1">{event.date} • {event.time}</p>
+                      <p className={`text-[15px] font-medium transition-colors duration-300 ${
+                        darkMode ? 'text-white' : 'text-[#1A1A1A]'
+                      }`}>{event.title}</p>
+                      <p className={`text-sm mt-1 transition-colors duration-300 ${
+                        darkMode ? 'text-gray-400' : 'text-[#6E6E6E]'
+                      }`}>{event.date} • {event.time}</p>
                     </div>
                     <button 
                       onClick={() => handleEventMenuClick(event.id)}
-                      className=" mr-2 p-2 rounded-[8px] text-[#00875A] hover:text-gray-600 bg-[#EBF6E9]"
+                      className={`mr-2 p-2 rounded-[8px] transition-colors duration-300 ${
+                        darkMode 
+                          ? 'text-green-400 hover:text-green-300 bg-green-900' 
+                          : 'text-[#00875A] hover:text-gray-600 bg-[#EBF6E9]'
+                      }`}
                     >
                       <MoreVertical className="w-4 h-4" />
                     </button>
@@ -519,12 +611,20 @@ const Dashboard = () => {
             </div>
 
             {/* Earnings */}
-            <div className="flex flex-col bg-white rounded-xl p-6 border border-gray-200" data-tour="earnings">
+            <div className={`flex flex-col rounded-xl p-6 border transition-colors duration-300 ${
+              darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+            }`} data-tour="earnings">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-[#1A1A1A]">Earnings</h3>
+                <h3 className={`text-lg font-semibold transition-colors duration-300 ${
+                  darkMode ? 'text-white' : 'text-[#1A1A1A]'
+                }`}>Earnings</h3>
                 <Button 
                   onClick={handleViewReports}
-                  className="text-[#00875A] px-3 py-2 border border-[#00875A] rounded-lg text-sm"
+                  className={`px-3 py-2 border rounded-lg text-sm transition-colors duration-300 ${
+                    darkMode 
+                      ? 'text-green-400 border-green-400 hover:bg-green-900' 
+                      : 'text-[#00875A] border-[#00875A] hover:bg-green-50'
+                  }`}
                 >
                   View Reports
                 </Button>
@@ -532,33 +632,49 @@ const Dashboard = () => {
               
               <div className="space-y-4">
                 <div className="py-2">
-                  <p className="text-[14px] text-[#1A1A1A]">Net Income</p>
+                  <p className={`text-[14px] transition-colors duration-300 ${
+                    darkMode ? 'text-gray-300' : 'text-[#1A1A1A]'
+                  }`}>Net Income</p>
                   <div className="flex items-center justify-between mt-1">
-                    <p className="text-[16px] font-bold text-[#1A1A1A]">$150,000</p>
+                    <p className={`text-[16px] font-bold transition-colors duration-300 ${
+                      darkMode ? 'text-white' : 'text-[#1A1A1A]'
+                    }`}>$150,000</p>
                     <div className="flex items-center space-x-1">
                       <TrendingUp className="w-4 h-4 text-green-500" />
                       <span className="text-xs text-green-600">+12.5% from last month</span>
                     </div>
                   </div>
-                  <div className="border-b border-gray-200 mt-3"></div>
+                  <div className={`border-b mt-3 transition-colors duration-300 ${
+                    darkMode ? 'border-gray-600' : 'border-gray-200'
+                  }`}></div>
                 </div>
                 
                 <div className="py-2">
-                  <p className="text-[14px] text-[#1A1A1A]">Business Expenses (This month)</p>
+                  <p className={`text-[14px] transition-colors duration-300 ${
+                    darkMode ? 'text-gray-300' : 'text-[#1A1A1A]'
+                  }`}>Business Expenses (This month)</p>
                   <div className="flex items-center justify-between mt-1">
-                    <p className="text-[16px] font-bold text-[#1A1A1A]">$50,000</p>
+                    <p className={`text-[16px] font-bold transition-colors duration-300 ${
+                      darkMode ? 'text-white' : 'text-[#1A1A1A]'
+                    }`}>$50,000</p>
                     <div className="flex items-center space-x-1">
                       <TrendingDown className="w-4 h-4 text-red-500" />
                       <span className="text-xs text-red-600">+8.3% from last month</span>
                     </div>
                   </div>
-                  <div className="border-b border-gray-200 mt-3"></div>
+                  <div className={`border-b mt-3 transition-colors duration-300 ${
+                    darkMode ? 'border-gray-600' : 'border-gray-200'
+                  }`}></div>
                 </div>
                 
                 <div className="py-2">
-                  <p className="text-[14px] text-[#1A1A1A]">Avg. Cost per Listing</p>
+                  <p className={`text-[14px] transition-colors duration-300 ${
+                    darkMode ? 'text-gray-300' : 'text-[#1A1A1A]'
+                  }`}>Avg. Cost per Listing</p>
                   <div className="flex items-center justify-between mt-1">
-                    <p className="text-[16px] font-bold text-[#1A1A1A]">$100</p>
+                    <p className={`text-[16px] font-bold transition-colors duration-300 ${
+                      darkMode ? 'text-white' : 'text-[#1A1A1A]'
+                    }`}>$100</p>
                     <div className="flex items-center space-x-1">
                       <TrendingUp className="w-4 h-4 text-green-500" />
                       <span className="text-xs text-green-600">+15.2% from last month</span>
@@ -569,8 +685,12 @@ const Dashboard = () => {
             </div>
 
             {/* Activity */}
-            <div className="flex flex-col rounded-xl bg-white  p-4 border border-gray-200" data-tour="activity">
-              <h3 className="text-lg font-semibold text-[#1A1A1A] mb-4">Activity</h3>
+            <div className={`flex flex-col rounded-xl p-4 border transition-colors duration-300 ${
+              darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'
+            }`} data-tour="activity">
+              <h3 className={`text-lg font-semibold mb-4 transition-colors duration-300 ${
+                darkMode ? 'text-white' : 'text-[#1A1A1A]'
+              }`}>Activity</h3>
               
               <div className="space-y-4">
                 {activities.map((activity, index) => (
@@ -581,11 +701,15 @@ const Dashboard = () => {
                           {activity.icon}
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-gray-900">{activity.text}</p>
+                          <p className={`text-sm font-medium transition-colors duration-300 ${
+                            darkMode ? 'text-white' : 'text-gray-900'
+                          }`}>{activity.text}</p>
                         </div>
                       </div>
                       <div>
-                        <p className="text-xs text-gray-500">{activity.time}</p>
+                        <p className={`text-xs transition-colors duration-300 ${
+                          darkMode ? 'text-gray-400' : 'text-gray-500'
+                        }`}>{activity.time}</p>
                       </div>
                     </div>
                     {index < activities.length - 1 && (
